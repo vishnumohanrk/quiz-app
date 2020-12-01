@@ -16,7 +16,7 @@ const AnswerBtn = ({ onPress, txt, optionAlpha, shouldDisable, btnCls }: AnswerB
       onClick={handleClick}
       disabled={shouldDisable}
       title={shouldDisable ? 'Not Allowed' : 'Choose Any One Option'}
-      className={`flex items-center w-full py-2 pl-3 mt-1 mb-4 text-xl text-justify border-2 border-gray-400 rounded-full focus:outline-none select-none truncate ${
+      className={`flex items-center w-full py-2 pl-3 mt-1 mb-4 text-xl text-justify border-2 border-gray-400 rounded-full focus:outline-none focus:ring-2 select-none truncate ${
         shouldDisable && 'cursor-not-allowed'
       } ${btnCls.btn}`}
     >

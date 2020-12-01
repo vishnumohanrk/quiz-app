@@ -1,4 +1,5 @@
 import { GetStaticProps } from 'next';
+import { useEffect, useState } from 'react';
 
 import AnswerBtn from '../components/AnswerBtn';
 import BtnGrp from '../components/BtnGrp';
@@ -13,13 +14,26 @@ import { IQuestion } from '../utils/types';
 
 const AppHome = ({ data }: { data: IQuestion[] }) => {
   const { currentQn, index, moveNext, movePre, totalCorrect, handleUserSelect } = useQuiz(data);
+  const [anim, setAnim] = useState('');
 
   const topTxt = index === 10 ? 'Your Score' : currentQn.question;
+
+  useEffect(() => {
+    if (index < 10) {
+      if (currentQn.userAnswer && !anim) {
+        setAnim(
+          currentQn.userAnswer === currentQn.correctAnswer ? 'animate-scale-and-scale' : 'animate-wobble-hor-bottom',
+        );
+      }
+    }
+  }, [index, anim, currentQn?.userAnswer, currentQn?.correctAnswer]);
+
+  useEffect(() => setAnim(''), [index]);
 
   return (
     <>
       <TopText txt={topTxt} />
-      <Card>
+      <Card anim={anim} key={anim}>
         {index === 10 ? (
           <FinalScore score={totalCorrect} />
         ) : (
