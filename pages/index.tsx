@@ -8,10 +8,11 @@ import GeneralBtn from '../components/GeneralBtn';
 import TopText from '../components/TopText';
 import useQuiz from '../hooks/useQuiz';
 import getAPIResp from '../utils/apiResp';
+import { btnCls, getAnsBtnState, optionAlphabets } from '../utils/helper';
 import { IQuestion } from '../utils/types';
 
 const AppHome = ({ data }: { data: IQuestion[] }) => {
-  const { currentQn, index, moveNext, movePre, totalCorrect } = useQuiz(data);
+  const { currentQn, index, moveNext, movePre, totalCorrect, handleUserSelect } = useQuiz(data);
 
   const topTxt = index === 10 ? 'Your Score' : currentQn.question;
 
@@ -19,7 +20,23 @@ const AppHome = ({ data }: { data: IQuestion[] }) => {
     <>
       <TopText txt={topTxt} />
       <Card>
-        {index === 10 ? <FinalScore score={totalCorrect} /> : currentQn.allOptions.map(i => <AnswerBtn key={i} />)}
+        {index === 10 ? (
+          <FinalScore score={totalCorrect} />
+        ) : (
+          currentQn.allOptions.map((i, j) => {
+            const help = btnCls(getAnsBtnState(currentQn.userAnswer, currentQn.correctAnswer, i));
+            return (
+              <AnswerBtn
+                key={i}
+                txt={i}
+                btnCls={help}
+                onPress={handleUserSelect}
+                shouldDisable={currentQn.userAnswer !== null}
+                optionAlpha={help.alpha || optionAlphabets[j as 0 | 1 | 2 | 3]}
+              />
+            );
+          })
+        )}
       </Card>
       <BtnGrp>
         <GeneralBtn txt="Previous" pos={1} onClick={movePre} disabled={index === 0} />

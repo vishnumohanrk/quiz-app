@@ -18,3 +18,12 @@ export interface IQuestion {
   correctAnswer: string;
   userAnswer: string | null;
 }
+
+export interface IBtnCls {
+  btn: string;
+  span1: string;
+  span2: string;
+  alpha: string | null;
+}
+
+export type TBtnState = 'init' | 'correct' | 'incorrect';
