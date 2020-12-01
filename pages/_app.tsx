@@ -2,6 +2,12 @@ import '../styles/index.css';
 
 import { AppProps } from 'next/app';
 
-const MyApp = ({ Component, pageProps }: AppProps) => <Component {...pageProps} />;
+import MainLayout from '../layouts/MainLayout';
+
+const MyApp = ({ Component, pageProps }: AppProps) => (
+  <MainLayout>
+    <Component {...pageProps} />
+  </MainLayout>
+);
 
 export default MyApp;
