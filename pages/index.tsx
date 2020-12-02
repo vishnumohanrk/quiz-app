@@ -1,5 +1,4 @@
 import { GetStaticProps } from 'next';
-import { useEffect, useState } from 'react';
 
 import AnswerBtn from '../components/AnswerBtn';
 import BtnGrp from '../components/BtnGrp';
@@ -14,28 +13,18 @@ import { btnCls, getAnsBtnState, optionAlphabets } from '../utils/helper';
 import { IQuestion } from '../utils/types';
 
 const AppHome = ({ data }: { data: IQuestion[] }) => {
-  const { currentQn, index, moveNext, movePre, totalCorrect, handleUserSelect } = useQuiz(data);
-  const [anim, setAnim] = useState('');
+  const { currentQn, index, moveQns, totalCorrect, handleUserSelect, anim } = useQuiz(data);
 
   const topTxt = index === 10 ? 'Your Score' : currentQn.question;
 
-  useEffect(() => {
-    if (index < 10) {
-      if (currentQn.userAnswer && !anim) {
-        setAnim(
-          currentQn.userAnswer === currentQn.correctAnswer ? 'animate-scale-and-scale' : 'animate-wobble-hor-bottom',
-        );
-      }
-    }
-  }, [index, anim, currentQn?.userAnswer, currentQn?.correctAnswer]);
-
-  useEffect(() => setAnim(''), [index]);
+  const moveNext = () => moveQns('next');
+  const movePre = () => moveQns('pre');
 
   return (
     <>
       <MetaHead />
       <TopText txt={topTxt} />
-      <Card anim={anim} key={anim}>
+      <Card anim={anim} key={index}>
         {index === 10 ? (
           <FinalScore score={totalCorrect} />
         ) : (
