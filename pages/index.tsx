@@ -6,6 +6,7 @@ import BtnGrp from '../components/BtnGrp';
 import Card from '../components/Card';
 import FinalScore from '../components/FinalScore';
 import GeneralBtn from '../components/GeneralBtn';
+import MetaHead from '../components/MetaHead';
 import TopText from '../components/TopText';
 import useQuiz from '../hooks/useQuiz';
 import getAPIResp from '../utils/apiResp';
@@ -32,6 +33,7 @@ const AppHome = ({ data }: { data: IQuestion[] }) => {
 
   return (
     <>
+      <MetaHead />
       <TopText txt={topTxt} />
       <Card anim={anim} key={anim}>
         {index === 10 ? (
