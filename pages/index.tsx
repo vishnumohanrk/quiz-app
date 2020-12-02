@@ -13,18 +13,13 @@ import { btnCls, getAnsBtnState, optionAlphabets } from '../utils/helper';
 import { IQuestion } from '../utils/types';
 
 const AppHome = ({ data }: { data: IQuestion[] }) => {
-  const { currentQn, index, moveQns, totalCorrect, handleUserSelect, anim } = useQuiz(data);
-
-  const topTxt = index === 10 ? 'Your Score' : currentQn.question;
-
-  const moveNext = () => moveQns('next');
-  const movePre = () => moveQns('pre');
+  const { currentQn, index, moveNext, movePre, totalCorrect, handleUserSelect, anim, topTxt } = useQuiz(data);
 
   return (
     <>
       <MetaHead />
       <TopText txt={topTxt} />
-      <Card anim={anim} key={index}>
+      <Card anim={anim}>
         {index === 10 ? (
           <FinalScore score={totalCorrect} />
         ) : (

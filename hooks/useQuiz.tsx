@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { IQuestion } from '../utils/types';
 
@@ -16,19 +16,16 @@ const useQuiz = (data: IQuestion[]) => {
     setAnim(animCalc(userAnswer === currentQn.correctAnswer));
   };
 
-  const moveQns = (id: 'pre' | 'next') => {
-    const nextIndex = id === 'next' ? (index + 1 >= 10 ? 10 : index + 1) : index - 1 <= 0 ? 0 : index - 1;
-    const qn = quizQns[nextIndex];
+  const moveNext = () => setIndex(index + 1 >= 10 ? 10 : index + 1);
+  const movePre = () => setIndex(index - 1 <= 0 ? 0 : index - 1);
 
-    setIndex(nextIndex);
-
-    if (qn && qn.userAnswer) setAnim(animCalc(qn.userAnswer === qn.correctAnswer));
-    if ((qn && !qn.userAnswer) || !qn) setAnim('');
-  };
+  useEffect(() => setAnim(''), [index]);
 
   const totalCorrect = quizQns.filter(i => i.userAnswer === i.correctAnswer).length;
 
-  return { moveQns, handleUserSelect, currentQn, index, totalCorrect, anim };
+  const topTxt = index === 10 ? 'Your Score' : currentQn.question;
+
+  return { moveNext, movePre, handleUserSelect, currentQn, index, totalCorrect, anim, topTxt };
 };
 
 export default useQuiz;
