@@ -6,7 +6,7 @@ interface GeneralBtnProps extends React.ButtonHTMLAttributes<HTMLButtonElement> 
 const GeneralBtn = ({ txt, pos, ...props }: GeneralBtnProps) => {
   const { className, disabled } = props;
 
-  const cls = `select-none w-full py-2 text-lg font-semibold tracking-wide text-center bg-white border rounded-md border-trueGray-800 ${
+  const cls = `transition-colors select-none w-full py-2 text-lg font-semibold tracking-wide text-center bg-white border rounded-md border-trueGray-800 ${
     disabled
       ? 'cursor-not-allowed opacity-60'
       : 'hover:bg-trueGray-800 hover:text-white focus:bg-trueGray-800 focus:text-white focus:outline-none'
